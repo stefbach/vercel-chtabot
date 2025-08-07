@@ -1,8 +1,78 @@
 {
   "name": "tibok-vercel",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "TIBOK - Service de téléconsultation médicale pour l'île Maurice",
   "private": true,
+  "author": "TIBOK Medical Services",
+  "license": "PROPRIETARY",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "vercel dev --listen 3001",
+    "build": "echo 'No build required for Vercel Functions'",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint api/**/*.js public/**/*.js --fix",
+    "format": "prettier --write \"**/*.{js,json,md,html,css}\"",
+    "clean": "rm -rf .vercel node_modules coverage",
+    "logs": "vercel logs --follow",
+    "env:pull": "vercel env pull .env.local",
+    "preflight": "npm run lint && npm test",
+    "security-check": "npm audit fix"
+  },
   "dependencies": {
-    "openai": "^4.0.0"
+    "openai": "^4.28.0"
+  },
+  "devDependencies": {
+    "@vercel/node": "^3.0.17",
+    "vercel": "^33.5.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.4",
+    "jest": "^29.7.0",
+    "@jest/globals": "^29.7.0"
+  },
+  "optionalDependencies": {
+    "dotenv": "^16.4.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "api/**/*.js",
+      "!api/**/*.test.js"
+    ],
+    "testMatch": [
+      "**/*.test.js"
+    ],
+    "testTimeout": 10000
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "jest": true,
+      "es2022": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-console": ["warn", { "allow": ["warn", "error", "info"] }],
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+      "prefer-const": "error",
+      "no-var": "error"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "printWidth": 100
   }
 }
