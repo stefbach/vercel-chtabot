@@ -1,7 +1,3 @@
-
-
-
-Q
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,8 +13,19 @@ Q
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
-            background:transparent;
+            /* Configuration adaptative pour iframe ou standalone */
+            background: var(--tibok-bg, transparent);
             min-height: 100vh;
+        }
+
+        /* Variables CSS pour personnalisation facile */
+        :root {
+            --tibok-primary: #0E7DB8;
+            --tibok-secondary: #17A2B8;
+            --tibok-accent: #20C997;
+            --tibok-gradient: linear-gradient(135deg, var(--tibok-primary) 0%, var(--tibok-accent) 100%);
+            --tibok-emergency: #ef4444;
+            --tibok-success: #4ade80;
         }
 
         /* Bouton flottant (toujours visible) */
@@ -28,7 +35,7 @@ Q
             right: 20px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #0E7DB8 0%, #20C997 100%);
+            background: var(--tibok-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -49,10 +56,32 @@ Q
             display: none;
         }
 
+        .tibok-floating-btn .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: var(--tibok-emergency);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: white;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(14, 125, 184, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(14, 125, 184, 0); }
             100% { box-shadow: 0 0 0 0 rgba(14, 125, 184, 0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
 
         /* Container principal - Mobile First */
@@ -61,9 +90,9 @@ Q
             bottom: 0;
             right: 0;
             width: 100%;
-            height: 80vh; /* Réduit à 80% de la hauteur sur mobile */
-            max-height: 600px; /* Hauteur max sur mobile */
-            background:transparent;
+            height: 80vh;
+            max-height: 600px;
+            background: var(--tibok-container-bg, white);
             z-index: 10000;
             display: none;
             flex-direction: column;
@@ -88,9 +117,9 @@ Q
             #tibok-container {
                 bottom: 80px;
                 right: 20px;
-                width: 350px; /* Réduit de 380px à 350px */
-                height: 500px; /* Réduit de 600px à 500px */
-                max-height: 80vh; /* Ne dépasse pas 80% de l'écran */
+                width: 350px;
+                height: 500px;
+                max-height: 80vh;
                 border-radius: 15px;
                 box-shadow: 0 10px 40px rgba(0,0,0,0.2);
             }
@@ -122,7 +151,7 @@ Q
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, #0E7DB8 0%, #17A2B8 50%, #20C997 100%);
+            background: var(--tibok-gradient);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -168,7 +197,7 @@ Q
         }
 
         .lang-button {
-            background:transparent;
+            background: white;
             border: none;
             padding: 15px 25px;
             border-radius: 50px;
@@ -189,17 +218,17 @@ Q
 
         .lang-button.fr {
             background: linear-gradient(135deg, #fff 0%, #f0f9ff 100%);
-            color: #0E7DB8;
+            color: var(--tibok-primary);
         }
 
         .lang-button.en {
             background: linear-gradient(135deg, #fff 0%, #f0fdf4 100%);
-            color: #17A2B8;
+            color: var(--tibok-secondary);
         }
 
         .lang-button.cr {
             background: linear-gradient(135deg, #fff 0%, #f0fdf4 100%);
-            color: #20C997;
+            color: var(--tibok-accent);
         }
 
         .flag-icon {
@@ -208,7 +237,7 @@ Q
 
         /* Header compact pour mobile */
         .header {
-            background: linear-gradient(135deg, #0E7DB8 0%, #17A2B8 50%, #20C997 100%);
+            background: var(--tibok-gradient);
             color: white;
             padding: 12px 15px;
             position: relative;
@@ -231,14 +260,14 @@ Q
         .logo {
             width: 35px;
             height: 35px;
-            background:transparent;
+            background: white;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 18px;
             font-weight: bold;
-            color: #0E7DB8;
+            color: var(--tibok-primary);
         }
 
         .title-text h1 {
@@ -259,7 +288,7 @@ Q
         .status-dot {
             width: 6px;
             height: 6px;
-            background: #4ade80;
+            background: var(--tibok-success);
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
@@ -305,7 +334,7 @@ Q
             flex: 1;
             overflow-y: auto;
             padding: 15px;
-            background: transparent;
+            background: var(--tibok-messages-bg, linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%));
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
@@ -336,14 +365,14 @@ Q
         }
 
         .message.bot .message-content {
-            background:transparent;
+            background: white;
             color: #1f2937;
             box-shadow: 0 2px 8px rgba(14, 125, 184, 0.1);
             border: 1px solid rgba(14, 125, 184, 0.1);
         }
 
         .message.user .message-content {
-            background: linear-gradient(135deg, #0E7DB8 0%, #17A2B8 100%);
+            background: linear-gradient(135deg, var(--tibok-primary) 0%, var(--tibok-secondary) 100%);
             color: white;
             box-shadow: 0 2px 8px rgba(14, 125, 184, 0.2);
         }
@@ -357,7 +386,7 @@ Q
         /* Message d'urgence */
         .emergency-message {
             background: #fee2e2;
-            border: 2px solid #ef4444;
+            border: 2px solid var(--tibok-emergency);
             padding: 12px;
             border-radius: 12px;
             margin-bottom: 12px;
@@ -377,7 +406,7 @@ Q
             align-items: center;
             gap: 4px;
             padding: 10px 14px;
-            background:transparent;
+            background: white;
             border-radius: 18px;
             width: fit-content;
             box-shadow: 0 2px 8px rgba(14, 125, 184, 0.1);
@@ -386,7 +415,7 @@ Q
         .typing-dot {
             width: 8px;
             height: 8px;
-            background: linear-gradient(135deg, #0E7DB8 0%, #20C997 100%);
+            background: var(--tibok-gradient);
             border-radius: 50%;
             animation: typing 1.4s infinite;
         }
@@ -402,7 +431,7 @@ Q
         /* Quick replies optimisées mobile */
         .quick-replies {
             padding: 10px;
-            background:transparent;
+            background: white;
             border-top: 1px solid #e5e7eb;
             display: flex;
             gap: 8px;
@@ -419,9 +448,9 @@ Q
 
         .quick-reply {
             padding: 8px 14px;
-            background:transparent;
-            border: 1.5px solid #17A2B8;
-            color: #17A2B8;
+            background: white;
+            border: 1.5px solid var(--tibok-secondary);
+            color: var(--tibok-secondary);
             border-radius: 20px;
             font-size: 13px;
             cursor: pointer;
@@ -431,7 +460,7 @@ Q
         }
 
         .quick-reply:active {
-            background: linear-gradient(135deg, #0E7DB8 0%, #17A2B8 100%);
+            background: linear-gradient(135deg, var(--tibok-primary) 0%, var(--tibok-secondary) 100%);
             color: white;
             transform: scale(0.95);
             border-color: transparent;
@@ -441,7 +470,7 @@ Q
         .cta-button {
             margin: 10px 15px;
             padding: 14px;
-            background: linear-gradient(135deg, #20C997 0%, #17A2B8 100%);
+            background: linear-gradient(135deg, var(--tibok-accent) 0%, var(--tibok-secondary) 100%);
             color: white;
             border: none;
             border-radius: 12px;
@@ -469,7 +498,7 @@ Q
         /* Zone de saisie optimisée mobile */
         .input-container {
             padding: 12px;
-            background:transparent;
+            background: white;
             border-top: 1px solid #e5e7eb;
             display: flex;
             gap: 8px;
@@ -487,20 +516,20 @@ Q
             padding: 10px 15px;
             border: 2px solid #e5e7eb;
             border-radius: 25px;
-            font-size: 16px; /* Important pour éviter le zoom sur iOS */
+            font-size: 16px;
             outline: none;
             transition: all 0.2s;
         }
 
         #message-input:focus {
-            border-color: #17A2B8;
+            border-color: var(--tibok-secondary);
             box-shadow: 0 0 0 3px rgba(23, 162, 184, 0.1);
         }
 
         .send-button {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #0E7DB8 0%, #17A2B8 100%);
+            background: linear-gradient(135deg, var(--tibok-primary) 0%, var(--tibok-secondary) 100%);
             border: none;
             border-radius: 50%;
             color: white;
@@ -551,10 +580,28 @@ Q
             }
         }
 
+        /* Mode debug */
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 11px;
+            z-index: 10001;
+            display: none;
+        }
+
+        .debug-mode .debug-info {
+            display: block;
+        }
+
         /* Ajustements pour très petits écrans */
         @media (max-height: 600px) {
             .header {
-                padding: 12px;
+                padding: 10px;
             }
             
             .info-bar {
@@ -570,35 +617,35 @@ Q
                 padding: 8px 12px;
                 font-size: 14px;
             }
-        }body, html {
-    background: transparent !important;
-}
+        }
 
-#tibok-container {
-    background: transparent !important;
-}
+        /* Mode transparent pour iframe */
+        .transparent-mode {
+            --tibok-bg: transparent;
+            --tibok-container-bg: transparent;
+            --tibok-messages-bg: transparent;
+        }
 
-.messages-container {
-    background: transparent !important;
-}
-
-/* Garder seulement les bulles de chat visibles */
-.message-content {
-    background: white !important;
-}
-
-/* Cacher le bouton flottant */
-.tibok-floating-btn {
-    display: none !important;
-}
+        .transparent-mode .tibok-floating-btn {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Debug Info (caché par défaut) -->
+    <div class="debug-info" id="debug-info">
+        Mode: <span id="debug-mode">Standard</span><br>
+        API: <span id="debug-api">Production</span><br>
+        Messages: <span id="debug-messages">0</span>
+    </div>
+
     <!-- Bouton flottant toujours visible -->
     <div class="tibok-floating-btn" id="floating-button" onclick="openChat()">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
             <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L1 23l6.71-1.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.41 0-2.73-.36-3.88-.99l-.28-.15-2.9.85.85-2.9-.15-.28C4.36 14.73 4 13.41 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"/>
         </svg>
+        <!-- Badge de notification (caché par défaut) -->
+        <span class="notification-badge" id="notification-badge" style="display: none;">1</span>
     </div>
 
     <!-- Container principal -->
@@ -681,6 +728,7 @@ Q
                     id="message-input" 
                     placeholder="Tapez votre message..."
                     maxlength="500"
+                    autocomplete="off"
                 />
             </div>
             <button class="send-button" id="send-button">
@@ -708,15 +756,50 @@ Q
     </div>
 
     <script>
-        // Configuration
-        const API_URL = '/api/chat';
-        const PAYMENT_URL = 'https://payment.tibok.mu';
-        
-        // === CONFIGURATION DE LA TAILLE DU WIDGET ===
-        // Choisir : 'mini', 'compact', 'standard', 'large', 'popup'
-        const WIDGET_SIZE = 'compact'; // Recommandé pour mobile
-        
-        // Appliquer la taille choisie
+        // ========== CONFIGURATION ==========
+        const TIBOK_CONFIG = {
+            // Mode: 'development' | 'production' | 'iframe'
+            mode: window.location.hostname === 'localhost' ? 'development' : 
+                  window.self !== window.top ? 'iframe' : 'production',
+            
+            // API Configuration
+            api: {
+                development: 'http://localhost:3001/api/chat',
+                production: '/api/chat',
+                timeout: 30000, // 30 secondes
+                retryAttempts: 3
+            },
+            
+            // Payment URL
+            paymentUrl: 'https://payment.tibok.mu',
+            
+            // Widget Size: 'mini' | 'compact' | 'standard' | 'large' | 'popup'
+            widgetSize: 'compact',
+            
+            // Options
+            enableDebug: window.location.hostname === 'localhost',
+            enableAnalytics: true,
+            enableNotifications: true,
+            enableAutoOpen: false,
+            autoOpenDelay: 5000,
+            
+            // Rate limiting
+            maxMessagesPerMinute: 10,
+            maxConversationLength: 100
+        };
+
+        // Détection automatique du mode
+        if (TIBOK_CONFIG.mode === 'iframe') {
+            document.body.classList.add('transparent-mode');
+        }
+
+        if (TIBOK_CONFIG.enableDebug) {
+            document.body.classList.add('debug-mode');
+            document.getElementById('debug-mode').textContent = TIBOK_CONFIG.mode;
+            document.getElementById('debug-api').textContent = TIBOK_CONFIG.mode === 'development' ? 'Local' : 'Production';
+        }
+
+        // ========== TAILLES DU WIDGET ==========
         const sizeConfigs = {
             mini: {
                 mobile: { height: '60vh', maxHeight: '400px' },
@@ -746,10 +829,9 @@ Q
         };
         
         // Appliquer les styles de taille
-        const config = sizeConfigs[WIDGET_SIZE] || sizeConfigs.compact;
+        const config = sizeConfigs[TIBOK_CONFIG.widgetSize] || sizeConfigs.compact;
         const customStyle = document.createElement('style');
         customStyle.textContent = `
-            /* Taille personnalisée - Mobile */
             @media (max-width: 767px) {
                 #tibok-container {
                     height: ${config.mobile.height} !important;
@@ -757,7 +839,6 @@ Q
                 }
             }
             
-            /* Taille personnalisée - Desktop */
             @media (min-width: 768px) {
                 #tibok-container {
                     width: ${config.desktop.width} !important;
@@ -765,32 +846,28 @@ Q
                 }
             }
             
-            /* Taille du bouton */
             .tibok-floating-btn {
                 width: ${config.button.size} !important;
                 height: ${config.button.size} !important;
             }
         `;
         document.head.appendChild(customStyle);
-        
-        // État
-        let currentLanguage = null;
-setTimeout(() => {
-    const savedLang = localStorage.getItem('tibok-language');
-    if (savedLang) {
-        selectLanguage(savedLang);
-    }
-}, 100);
+
+        // ========== ÉTAT DE L'APPLICATION ==========
+        let currentLanguage = localStorage.getItem('tibok-language') || null;
         let conversationHistory = [];
         let userProfile = {
             hasAskedAboutPrice: false,
             hasAskedAboutProcess: false,
             hasExpressedSymptoms: false,
             readyToPay: false,
-            questionsCount: 0
+            questionsCount: 0,
+            sessionStartTime: Date.now()
         };
+        let messageCount = 0;
+        let lastMessageTime = 0;
 
-        // Traductions
+        // ========== TRADUCTIONS ==========
         const translations = {
             fr: {
                 welcome: "👋 Bonjour ! Je suis votre assistant médical Tibok.\n\nJe suis disponible pour répondre à toutes vos questions et vous aider à consulter un médecin rapidement.\n\n💡 Comment puis-je vous aider aujourd'hui ?",
@@ -810,7 +887,9 @@ setTimeout(() => {
                 appointmentText: "Sans RDV",
                 secureText: "100% Sécurisé",
                 doctorsText: "Médecins certifiés",
-                deliveryText: "Livraison incluse"
+                deliveryText: "Livraison incluse",
+                rateLimitError: "Veuillez patienter quelques secondes avant d'envoyer un nouveau message.",
+                networkError: "Erreur de connexion. Veuillez réessayer."
             },
             en: {
                 welcome: "👋 Hello! I'm your Tibok medical assistant.\n\nI'm available to answer all your questions and help you consult a doctor quickly.\n\n💡 How can I help you today?",
@@ -830,7 +909,9 @@ setTimeout(() => {
                 appointmentText: "No appointment",
                 secureText: "100% Secure",
                 doctorsText: "Certified doctors",
-                deliveryText: "Delivery included"
+                deliveryText: "Delivery included",
+                rateLimitError: "Please wait a few seconds before sending a new message.",
+                networkError: "Connection error. Please try again."
             },
             cr: {
                 welcome: "👋 Bonzour! Mo ou assistan medikal Tibok.\n\nMo disponib pou repons tou ou bann kestion ek ed ou konsilt en dokter vit.\n\n💡 Kuma mo kav ed ou zordi?",
@@ -850,20 +931,49 @@ setTimeout(() => {
                 appointmentText: "Pa bizin randevu",
                 secureText: "100% Sekir",
                 doctorsText: "Dokter sertifie",
-                deliveryText: "Livrezon inklir"
+                deliveryText: "Livrezon inklir",
+                rateLimitError: "Atan enn ti moman avan anvoye enn lot mesaz.",
+                networkError: "Problenm koneksion. Esey ankore."
             }
         };
 
+        // ========== GESTION DU CACHE ==========
+        const responseCache = new Map();
+        const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+        function getCachedResponse(message) {
+            const normalized = message.toLowerCase().trim();
+            const cached = responseCache.get(normalized);
+            
+            if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+                return cached.response;
+            }
+            
+            responseCache.delete(normalized);
+            return null;
+        }
+
+        function setCachedResponse(message, response) {
+            const normalized = message.toLowerCase().trim();
+            responseCache.set(normalized, {
+                response,
+                timestamp: Date.now()
+            });
+        }
+
+        // ========== FONCTIONS PRINCIPALES ==========
+        
         // Ouvrir le chat
         function openChat() {
             document.getElementById('tibok-container').classList.add('open');
             document.getElementById('floating-button').classList.add('hidden');
             
-            // Si c'est la première ouverture, focus sur la sélection de langue
             if (!currentLanguage) {
-                // L'écran de sélection de langue est déjà visible
+                // Première ouverture
+                trackEvent('chat_opened', { firstTime: true });
             } else {
-                // Si une langue a déjà été sélectionnée, focus sur l'input
+                // Réouverture
+                trackEvent('chat_reopened', { language: currentLanguage });
                 setTimeout(() => {
                     document.getElementById('message-input').focus();
                 }, 300);
@@ -874,11 +984,16 @@ setTimeout(() => {
         function closeChat() {
             document.getElementById('tibok-container').classList.remove('open');
             document.getElementById('floating-button').classList.remove('hidden');
+            trackEvent('chat_closed', {
+                messagesCount: conversationHistory.length,
+                sessionDuration: Date.now() - userProfile.sessionStartTime
+            });
         }
 
         // Sélection de la langue
         function selectLanguage(lang) {
             currentLanguage = lang;
+            localStorage.setItem('tibok-language', lang);
             
             // Cacher l'écran de sélection
             document.getElementById('language-selection').classList.add('hidden');
@@ -903,6 +1018,8 @@ setTimeout(() => {
             setTimeout(() => {
                 document.getElementById('message-input').focus();
             }, 100);
+            
+            trackEvent('language_selected', { language: lang });
         }
 
         // Mise à jour de l'interface selon la langue
@@ -922,6 +1039,8 @@ setTimeout(() => {
             }
         }
 
+        // ========== GESTION DES MESSAGES ==========
+        
         // Éléments DOM
         const messagesContainer = document.getElementById('messages-container');
         const messageInput = document.getElementById('message-input');
@@ -949,7 +1068,7 @@ setTimeout(() => {
                 messageDiv.innerHTML = `
                     <div class="emergency-message">
                         <span class="alert-icon">⚠️</span>
-                        <span>${text}</span>
+                        <span>${sanitizeHTML(text)}</span>
                     </div>
                 `;
             } else {
@@ -960,7 +1079,7 @@ setTimeout(() => {
                 
                 messageDiv.innerHTML = `
                     <div class="message-content">
-                        ${text.replace(/\n/g, '<br>')}
+                        ${sanitizeHTML(text).replace(/\n/g, '<br>')}
                         <div class="message-time">${time}</div>
                     </div>
                 `;
@@ -968,7 +1087,24 @@ setTimeout(() => {
             
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
-            conversationHistory.push({ text, sender, timestamp: new Date() });
+            
+            conversationHistory.push({ 
+                role: sender === 'bot' ? 'assistant' : 'user',
+                content: text,
+                timestamp: new Date() 
+            });
+            
+            messageCount++;
+            if (TIBOK_CONFIG.enableDebug) {
+                document.getElementById('debug-messages').textContent = messageCount;
+            }
+        }
+
+        // Sanitize HTML pour éviter les injections
+        function sanitizeHTML(str) {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
         }
 
         // Indicateur de frappe
@@ -996,7 +1132,7 @@ setTimeout(() => {
         function updateQuickReplies(customReplies = null) {
             const replies = customReplies || translations[currentLanguage].quickReplies;
             quickRepliesContainer.innerHTML = replies.map(reply => 
-                `<button class="quick-reply" onclick="sendQuickReply('${reply.replace(/'/g, "\\'")}')">${reply}</button>`
+                `<button class="quick-reply" onclick="sendQuickReply('${reply.replace(/'/g, "\\'")}')">${sanitizeHTML(reply)}</button>`
             ).join('');
         }
 
@@ -1006,14 +1142,17 @@ setTimeout(() => {
             sendMessage();
         }
 
+        // ========== DÉTECTION ET ANALYSE ==========
+        
         // Détection d'urgence
         function detectEmergency(message) {
             const emergencyKeywords = [
-                'urgence', 'urgent', 'grave', 'douleur intense',
-                'emergency', 'severe', 'chest pain',
-                'urzan', 'doule for', 'mal leker',
-                'respir', 'breath', 'saign', 'bleed',
-                'accident', 'aksidan', 'inconscient'
+                'urgence', 'urgent', 'grave', 'douleur intense', 'suicide',
+                'emergency', 'severe', 'chest pain', 'can\'t breathe',
+                'urzan', 'doule for', 'mal leker', 'pa kav respire',
+                'respir', 'breath', 'saign', 'bleed', 'bleeding',
+                'accident', 'aksidan', 'inconscient', 'unconscious',
+                'crise', 'crisis', 'overdose', 'poison'
             ];
             
             const lowerMessage = message.toLowerCase();
@@ -1025,33 +1164,74 @@ setTimeout(() => {
             const lowerMessage = message.toLowerCase();
             
             // Détection des symptômes
-            if (lowerMessage.match(/mal|douleur|pain|fièvre|fever|toux|cough|gorge|throat/)) {
+            if (lowerMessage.match(/mal|douleur|pain|fièvre|fever|toux|cough|gorge|throat|vomit|fatigue|insomnie/)) {
                 userProfile.hasExpressedSymptoms = true;
             }
             
             // Questions sur le prix
-            if (lowerMessage.match(/prix|coût|price|cost|tarif|komie/)) {
+            if (lowerMessage.match(/prix|coût|price|cost|tarif|komie|combien|cher/)) {
                 userProfile.hasAskedAboutPrice = true;
             }
             
             // Questions sur le processus
-            if (lowerMessage.match(/comment|marche|how|work|kuma/)) {
+            if (lowerMessage.match(/comment|marche|how|work|kuma|fonctionn|process/)) {
                 userProfile.hasAskedAboutProcess = true;
             }
             
             userProfile.questionsCount++;
             
+            // Déterminer si l'utilisateur est prêt à payer
             if (userProfile.hasExpressedSymptoms || 
                 (userProfile.hasAskedAboutPrice && userProfile.hasAskedAboutProcess) ||
                 userProfile.questionsCount >= 3) {
                 userProfile.readyToPay = true;
             }
+            
+            return {
+                intent: lowerMessage.match(/symptom|mal|douleur/) ? 'medical' :
+                        lowerMessage.match(/prix|cost|tarif/) ? 'pricing' :
+                        lowerMessage.match(/comment|how|work/) ? 'process' : 'general',
+                confidence: 0.8
+            };
         }
 
-        // Envoyer un message
+        // ========== RATE LIMITING ==========
+        
+        function checkRateLimit() {
+            const now = Date.now();
+            const timeSinceLastMessage = now - lastMessageTime;
+            
+            if (timeSinceLastMessage < 6000) { // 6 secondes entre messages
+                const messagesInLastMinute = conversationHistory.filter(
+                    msg => now - new Date(msg.timestamp).getTime() < 60000
+                ).length;
+                
+                if (messagesInLastMinute >= TIBOK_CONFIG.maxMessagesPerMinute) {
+                    return false;
+                }
+            }
+            
+            lastMessageTime = now;
+            return true;
+        }
+
+        // ========== ENVOI DE MESSAGE ==========
+        
         async function sendMessage() {
             const message = messageInput.value.trim();
             if (!message) return;
+            
+            // Vérifier le rate limiting
+            if (!checkRateLimit()) {
+                addMessage(translations[currentLanguage].rateLimitError, 'bot');
+                return;
+            }
+            
+            // Vérifier la longueur de la conversation
+            if (conversationHistory.length >= TIBOK_CONFIG.maxConversationLength) {
+                addMessage("Cette conversation est très longue. Veuillez rafraîchir la page pour continuer.", 'bot');
+                return;
+            }
             
             sendButton.disabled = true;
             messageInput.disabled = true;
@@ -1070,21 +1250,47 @@ setTimeout(() => {
                     addMessage(translations[currentLanguage].emergencyAlert, 'bot', true);
                     sendButton.disabled = false;
                     messageInput.disabled = false;
+                    messageInput.focus();
+                }, 500);
+                trackEvent('emergency_detected', { message });
+                return;
+            }
+            
+            const intent = analyzeIntent(message);
+            trackEvent('message_sent', { intent: intent.intent });
+            
+            // Vérifier le cache
+            const cachedResponse = getCachedResponse(message);
+            if (cachedResponse) {
+                setTimeout(() => {
+                    addMessage(cachedResponse, 'bot');
+                    sendButton.disabled = false;
+                    messageInput.disabled = false;
+                    messageInput.focus();
+                    
+                    if (userProfile.readyToPay && ctaButton.style.display === 'none') {
+                        ctaButton.style.display = 'flex';
+                    }
                 }, 500);
                 return;
             }
             
-            analyzeIntent(message);
             showTyping();
             
             try {
-                const response = await fetch(API_URL, {
+                const apiUrl = TIBOK_CONFIG.mode === 'development' 
+                    ? TIBOK_CONFIG.api.development 
+                    : TIBOK_CONFIG.api.production;
+                
+                const response = await fetchWithRetry(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         message,
                         language: currentLanguage,
-                        conversationHistory: conversationHistory.slice(-10)
+                        conversationHistory: conversationHistory.slice(-10),
+                        userProfile,
+                        intent: intent.intent
                     })
                 });
                 
@@ -1095,6 +1301,7 @@ setTimeout(() => {
                     
                     if (data.success) {
                         addMessage(data.response, 'bot');
+                        setCachedResponse(message, data.response);
                         
                         if (userProfile.readyToPay && ctaButton.style.display === 'none') {
                             setTimeout(() => {
@@ -1103,7 +1310,7 @@ setTimeout(() => {
                             }, 1500);
                         }
                     } else {
-                        addMessage(data.error || "Une erreur s'est produite.", 'bot');
+                        addMessage(data.error || translations[currentLanguage].networkError, 'bot');
                     }
                     
                     sendButton.disabled = false;
@@ -1125,11 +1332,42 @@ setTimeout(() => {
                     
                     sendButton.disabled = false;
                     messageInput.disabled = false;
+                    messageInput.focus();
                 }, 1000);
+                
+                trackEvent('api_error', { error: error.message });
             }
         }
 
-        // Réponses de fallback
+        // Fetch avec retry
+        async function fetchWithRetry(url, options, retries = TIBOK_CONFIG.api.retryAttempts) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), TIBOK_CONFIG.api.timeout);
+                    
+                    const response = await fetch(url, {
+                        ...options,
+                        signal: controller.signal
+                    });
+                    
+                    clearTimeout(timeout);
+                    
+                    if (!response.ok && i < retries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
+                        continue;
+                    }
+                    
+                    return response;
+                } catch (error) {
+                    if (i === retries - 1) throw error;
+                    await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
+                }
+            }
+        }
+
+        // ========== RÉPONSES DE FALLBACK ==========
+        
         function getFallbackResponse(message) {
             const lowerMessage = message.toLowerCase();
             const lang = currentLanguage;
@@ -1138,33 +1376,71 @@ setTimeout(() => {
                 fr: {
                     price: "💰 Excellente nouvelle ! La consultation coûte seulement Rs 1,150 TTC, tout inclus : consultation + ordonnance + livraison gratuite !",
                     process: "🚀 C'est ultra simple : 1) Payez Rs 1,150 2) Connexion immédiate au médecin 3) Recevez votre ordonnance. Total : 15 minutes !",
+                    symptoms: "Je comprends que vous ne vous sentez pas bien. Nos médecins sont disponibles immédiatement pour vous examiner et vous prescrire le traitement adapté.",
+                    hours: "📅 Nous sommes ouverts tous les jours de 8h à minuit. Nos médecins sont actuellement disponibles !",
+                    delivery: "🚚 La livraison est gratuite et incluse dans le prix de Rs 1,150. Vous recevrez vos médicaments dans les 2 heures.",
                     default: "Je suis là pour vous aider. Nos médecins sont disponibles maintenant pour vous soigner. Voulez-vous commencer une consultation ?"
                 },
                 en: {
                     price: "💰 Great news! The consultation costs only Rs 1,150 all inclusive: consultation + prescription + free delivery!",
                     process: "🚀 It's ultra simple: 1) Pay Rs 1,150 2) Immediate connection to doctor 3) Receive your prescription. Total: 15 minutes!",
+                    symptoms: "I understand you're not feeling well. Our doctors are immediately available to examine you and prescribe the appropriate treatment.",
+                    hours: "📅 We're open every day from 8am to midnight. Our doctors are currently available!",
+                    delivery: "🚚 Delivery is free and included in the Rs 1,150 price. You'll receive your medications within 2 hours.",
                     default: "I'm here to help. Our doctors are available now to treat you. Would you like to start a consultation?"
                 },
                 cr: {
                     price: "💰 Bon nouvel! Konsiltasion kout zis Rs 1,150 tou kompri: konsiltasion + lordonans + livrezon gratis!",
                     process: "🚀 Li super senp: 1) Pey Rs 1,150 2) Konekte tousit ar dokter 3) Gagn ou lordonans. Total: 15 minit!",
+                    symptoms: "Mo konpran ou pa pe santi ou bien. Nou dokter disponib tousit pou egzamin ou ek donn ou tretman ki bizin.",
+                    hours: "📅 Nou ouver tou le zour depi 8er ziska minwi. Nou dokter disponib aster-la mem!",
+                    delivery: "🚚 Livrezon gratis ek inklir dan pri Rs 1,150. Ou pou gagn ou medikaman dan 2 er-tan.",
                     default: "Mo la pou ed ou. Nou dokter disponib aster pou swagn ou. Ou le koumans en konsiltasion?"
                 }
             };
             
             const langResponses = responses[lang] || responses.fr;
             
-            if (lowerMessage.match(/prix|coût|price|cost|komie/)) {
+            if (lowerMessage.match(/prix|coût|price|cost|komie|combien/)) {
                 return langResponses.price;
             }
-            if (lowerMessage.match(/comment|marche|how|work|kuma/)) {
+            if (lowerMessage.match(/comment|marche|how|work|kuma|process/)) {
                 return langResponses.process;
+            }
+            if (lowerMessage.match(/mal|douleur|symptom|sick|fever/)) {
+                return langResponses.symptoms;
+            }
+            if (lowerMessage.match(/heure|hour|time|quand|when/)) {
+                return langResponses.hours;
+            }
+            if (lowerMessage.match(/livr|deliver|medica/)) {
+                return langResponses.delivery;
             }
             
             return langResponses.default;
         }
 
-        // Redirection vers le paiement
+        // ========== ANALYTICS ==========
+        
+        function trackEvent(eventName, properties = {}) {
+            if (!TIBOK_CONFIG.enableAnalytics) return;
+            
+            // Google Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', eventName, {
+                    ...properties,
+                    timestamp: Date.now()
+                });
+            }
+            
+            // Console log pour debug
+            if (TIBOK_CONFIG.enableDebug) {
+                console.log('📊 Event:', eventName, properties);
+            }
+        }
+
+        // ========== REDIRECTION PAIEMENT ==========
+        
         function redirectToPayment() {
             const confirmMessages = {
                 fr: "🎉 Excellent choix ! Je vous redirige vers le paiement sécurisé...",
@@ -1174,12 +1450,19 @@ setTimeout(() => {
             
             addMessage(confirmMessages[currentLanguage], 'bot');
             
+            trackEvent('payment_initiated', {
+                conversationLength: conversationHistory.length,
+                language: currentLanguage,
+                userProfile
+            });
+            
             setTimeout(() => {
-                window.open(PAYMENT_URL, '_blank');
+                window.open(TIBOK_CONFIG.paymentUrl, '_blank');
             }, 2000);
         }
 
-        // Gestion du clavier mobile
+        // ========== GESTION DU CLAVIER MOBILE ==========
+        
         let viewportHeight = window.innerHeight;
         window.addEventListener('resize', () => {
             const currentHeight = window.innerHeight;
@@ -1188,47 +1471,64 @@ setTimeout(() => {
                 document.getElementById('tibok-container').style.height = `${currentHeight}px`;
             } else {
                 // Le clavier est fermé
-                document.getElementById('tibok-container').style.height = '100vh';
+                document.getElementById('tibok-container').style.height = '';
             }
         });
 
-        // Fermer avec la touche Escape sur desktop
+        // ========== RACCOURCIS CLAVIER ==========
+        
         document.addEventListener('keydown', (e) => {
+            // Escape pour fermer
             if (e.key === 'Escape' && document.getElementById('tibok-container').classList.contains('open')) {
                 closeChat();
             }
+            
+            // Ctrl+Shift+T pour ouvrir (desktop uniquement)
+            if (e.ctrlKey && e.shiftKey && e.key === 'T' && !document.getElementById('tibok-container').classList.contains('open')) {
+                openChat();
+            }
         });
 
-        // Auto-ouverture optionnelle après 5 secondes
-        // Décommentez si vous voulez que le chat s'ouvre automatiquement
-        /*
-        setTimeout(() => {
-            openChat();
-        }, 5000);
-        */
+        // ========== INITIALISATION ==========
+        
+        // Restaurer la langue si déjà sélectionnée
+        if (currentLanguage) {
+            setTimeout(() => {
+                selectLanguage(currentLanguage);
+            }, 100);
+        }
+
+        // Auto-ouverture optionnelle
+        if (TIBOK_CONFIG.enableAutoOpen) {
+            setTimeout(() => {
+                if (!document.getElementById('tibok-container').classList.contains('open')) {
+                    openChat();
+                    
+                    // Afficher une notification
+                    if (TIBOK_CONFIG.enableNotifications) {
+                        const badge = document.getElementById('notification-badge');
+                        badge.style.display = 'flex';
+                        badge.textContent = '1';
+                    }
+                }
+            }, TIBOK_CONFIG.autoOpenDelay);
+        }
+
+        // Enregistrer les événements de la page
+        window.addEventListener('beforeunload', () => {
+            trackEvent('session_end', {
+                duration: Date.now() - userProfile.sessionStartTime,
+                messagesCount: conversationHistory.length,
+                converted: userProfile.readyToPay
+            });
+        });
+
+        // Message de bienvenue dans la console
+        if (TIBOK_CONFIG.enableDebug) {
+            console.log('%c🏥 TIBOK Widget Loaded', 'color: #0E7DB8; font-size: 16px; font-weight: bold;');
+            console.log('Mode:', TIBOK_CONFIG.mode);
+            console.log('API:', TIBOK_CONFIG.api[TIBOK_CONFIG.mode]);
+        }
     </script>
 </body>
 </html>
-
-/* FORCE TRANSPARENCE TOTALE */
-body, html {
-    background: transparent !important;
-}
-
-#tibok-container {
-    background: transparent !important;
-}
-
-.messages-container {
-    background: transparent !important;
-}
-
-/* Garder seulement les bulles de chat visibles */
-.message-content {
-    background: white !important;
-}
-
-/* Cacher le bouton flottant */
-.tibok-floating-btn {
-    display: none !important;
-}
