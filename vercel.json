@@ -1,68 +1,44 @@
-# .env.example - Configuration TIBOK
-
-# OpenAI Configuration
-OPENAI_API_KEY=sk-your-api-key-here
-OPENAI_MODEL=gpt-3.5-turbo
-
-# Security
-ALLOWED_ORIGINS=https://tibok.mu,https://www.tibok.mu,http://localhost:3000
-NODE_ENV=production
-
-# Rate Limiting (optionnel - pour Redis)
-REDIS_URL=redis://localhost:6379
-RATE_LIMIT_WINDOW=60000
-MAX_REQUESTS_PER_WINDOW=10
-
-# Monitoring (optionnel)
-SENTRY_DSN=https://your-sentry-dsn
-ANALYTICS_ID=G-XXXXXXXXXX
-
-# Feature Flags
-ENABLE_CACHE=true
-ENABLE_RATE_LIMIT=true
-ENABLE_EMERGENCY_DETECTION=true
-
----
-
-# package.json - Dépendances mises à jour
 {
-  "name": "tibok-vercel",
-  "version": "2.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "vercel dev",
-    "deploy": "vercel --prod",
-    "test": "jest",
-    "lint": "eslint api/*.js"
-  },
-  "dependencies": {
-    "openai": "^4.0.0"
-  },
-  "devDependencies": {
-    "@vercel/node": "^3.0.0",
-    "eslint": "^8.0.0",
-    "jest": "^29.0.0",
-    "vercel": "^32.0.0"
-  }
-}
-
----
-
-# vercel.json - Configuration optimisée
-{
+  "version": 2,
+  "name": "tibok-widget",
+  "regions": ["cdg1"],
+  "public": false,
   "functions": {
     "api/chat.js": {
       "maxDuration": 30,
-      "memory": 1024
+      "memory": 1024,
+      "runtime": "nodejs18.x"
+    },
+    "api/health.js": {
+      "maxDuration": 5,
+      "memory": 128,
+      "runtime": "nodejs18.x"
     }
   },
   "headers": [
     {
-      "source": "/api/(.*)",
+      "source": "/(.*)",
       "headers": [
+        {
+          "key": "X-DNS-Prefetch-Control",
+          "value": "on"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
         {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
         },
         {
           "key": "X-Frame-Options",
@@ -75,6 +51,32 @@ ENABLE_EMERGENCY_DETECTION=true
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.openai.com"
+        }
+      ]
+    },
+    {
+      "source": "/widget.html",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "ALLOWALL"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
+        }
+      ]
+    },
+    {
+      "source": "/public/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
         }
       ]
     }
@@ -83,6 +85,23 @@ ENABLE_EMERGENCY_DETECTION=true
     {
       "source": "/widget.js",
       "destination": "/public/widget.html"
+    },
+    {
+      "source": "/widget",
+      "destination": "/public/widget.html"
+    },
+    {
+      "source": "/health",
+      "destination": "/api/health"
     }
-  ]
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://tibok.mu",
+      "permanent": false
+    }
+  ],
+  "trailingSlash": false,
+  "cleanUrls": true
 }
