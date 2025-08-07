@@ -1,2 +1,240 @@
-.vercel
+# ==========================================
+# Environment Variables
+# ==========================================
+.env
 .env.local
+.env.production
+.env.*.local
+.env.backup
+*.env
+
+# ==========================================
+# Dependencies
+# ==========================================
+node_modules/
+bower_components/
+jspm_packages/
+
+# ==========================================
+# Build & Output
+# ==========================================
+.vercel
+.next
+.nuxt
+dist/
+build/
+out/
+.output/
+.vercel/
+*.tsbuildinfo
+
+# ==========================================
+# Logs
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+pnpm-lock.yaml
+
+# ==========================================
+# Testing & Coverage
+# ==========================================
+coverage/
+.nyc_output/
+test-results/
+junit.xml
+*.lcov
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# ==========================================
+# IDE & Editors
+# ==========================================
+# VSCode
+.vscode/
+*.code-workspace
+.history/
+*.vsix
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*.swn
+*.bak
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+.\#*
+.emacs.desktop
+.emacs.desktop.lock
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# ==========================================
+# Cache & Temporary Files
+# ==========================================
+.cache/
+.parcel-cache/
+.npm/
+.yarn/
+.pnp.*
+.eslintcache
+.stylelintcache
+*.pid
+*.seed
+*.pid.lock
+.grunt/
+.lock-wscript
+.node_repl_history
+.yarn-integrity
+
+# ==========================================
+# Database
+# ==========================================
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+data/
+database/
+
+# ==========================================
+# Monitoring & Analytics
+# ==========================================
+.sentryclirc
+sentry.properties
+
+# ==========================================
+# Security & Secrets
+# ==========================================
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+secrets/
+private/
+confidential/
+.secrets/
+config/secrets.yml
+id_rsa*
+*.gpg
+
+# ==========================================
+# Backup Files
+# ==========================================
+backup/
+backups/
+*.backup
+*.bak
+*.tmp
+*.temp
+*.old
+*.orig
+*.rej
+
+# ==========================================
+# Documentation
+# ==========================================
+docs/_build/
+site/
+
+# ==========================================
+# Package Files
+# ==========================================
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.rar
+*.7z
+*.dmg
+*.iso
+*.jar
+*.war
+*.ear
+
+# ==========================================
+# Project Specific
+# ==========================================
+# Local development files
+local/
+scratch/
+sandbox/
+experiments/
+
+# User uploaded files (if any)
+uploads/
+public/uploads/
+
+# Generated files
+generated/
+auto-generated/
+
+# Redis dump
+dump.rdb
+
+# PM2
+ecosystem.config.js
+.pm2/
+
+# ==========================================
+# Optional - Uncomment if needed
+# ==========================================
+# package-lock.json
+# yarn.lock
+# composer.lock
